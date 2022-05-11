@@ -1,6 +1,7 @@
 // @ts-check
 import { resolve } from "path";
 import express from "express";
+import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import { Shopify, ApiVersion } from "@shopify/shopify-api";
 import "dotenv/config";
@@ -35,6 +36,13 @@ Shopify.Webhooks.Registry.addHandler("APP_UNINSTALLED", {
     delete ACTIVE_SHOPIFY_SHOPS[shop];
   },
 });
+
+// Configure Mongoose to Connect to MongoDB
+mongoose
+    // @ts-ignore
+    .connect(process.env.DATABASE_URL, { seNewUrlParser: true, useUnifiedTopology: true})
+    .then((response) => {console.log("MongoDB Connected Successfully.");})
+    .catch((err) => {console.log("Database connection failed.");});
 
 // export for test use only
 export async function createServer(
@@ -96,6 +104,10 @@ export async function createServer(
     next();
   });
 
+  /* Routes */
+  const api = require("./routes/api");
+  app.use("/api", api);
+
   app.use("/*", (req, res, next) => {
     const { shop } = req.query;
 
@@ -154,6 +166,8 @@ export async function createServer(
 
   return { app, vite };
 }
+
+
 
 if (!isTest) {
   createServer().then(({ app }) => app.listen(PORT));
