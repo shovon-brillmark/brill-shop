@@ -1,19 +1,17 @@
 /**
- * Product Controller---------------------------
+ * Popup Controller---------------------------
  */
 
- const Product = require('../../models/product.model');
+ const Popup = require('../../models/popup.model');
 
- exports.addProduct = (req, res, next) => {
+ exports.addPopup = (req, res, next) => {
 
-    const newProduct = new Product({
+    const newPopup = new Popup({
         title: req.body.title,
-        category: req.body.category,
-        quantity: req.body.quantity,
-        price: req.body.price
+        description: req.body.description,
     });
 
-    newProduct.save().then( result => {
+    newPopup.save().then( result => {
 
         if(!result){
             return res.status(201).json({
@@ -36,29 +34,27 @@
 
  }
 
- exports.updateProduct = (req, res, next) => {
+ exports.updatePopup = (req, res, next) => {
 
-     const productId = req.productData.productId;
+     const popupId = req.popupData.popupId;
 
-     const newProduct = new Product({
+     const newPopup = new Popup({
         title: req.body.title,
-        category: req.body.category,
-        quantity: req.body.quantity,
-        price: req.body.price
+        description: req.body.description,
     });
      
-     Product.updateOne({ _id: productId }, newProduct).then(result => {
+     Popup.updateOne({ _id: popupId }, newPopup).then(result => {
          if (result.n > 0) {
             res.status(201).json({
             data: result,
             error: false,
-            msg: 'Successfully Updated Product'
+            msg: 'Successfully Updated Popup'
         });
              
          } else {
             res.status(201).json({
             error: true,
-            msg: 'Problem in Updating product'
+            msg: 'Problem in Updating popup'
         });
          }
         

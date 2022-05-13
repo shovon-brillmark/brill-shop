@@ -4,10 +4,10 @@ const router = express.Router();
 import applyAuthMiddleware from "./middleware/auth.js";
 import verifyRequest from "./middleware/verify-request.js";
 
-//Product Related Operation------------------
-const product = require('../../controllers/product/product.controller');
-router.post('/add', product.addProduct);
-router.put('/update', product.updateProduct);
+//Popup Related Operation------------------
+const popup = require('../../controllers/popup/popup.controller');
+router.post('/add', popup.addPopup);
+router.put('/update', popup.updatePopup);
 
 // Export the Router
 module.exports = router;
