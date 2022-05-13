@@ -1,13 +1,11 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
 // Auth
-import applyAuthMiddleware from "./middleware/auth.js";
-import verifyRequest from "./middleware/verify-request.js";
 
 //Product Related Operation------------------
-const product = require('../../controllers/product/product.controller');
+import product from '../../controllers/product/product.controller.js';
 router.post('/add', product.addProduct);
 router.put('/update', product.updateProduct);
 
 // Export the Router
-module.exports = router;
+export default router;

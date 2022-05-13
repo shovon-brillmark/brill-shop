@@ -55,7 +55,37 @@ export function ProductsCard() {
             remove them at any time.
           </p>
           <Heading element="h4">
-            TOTAL PRODUCTS
+            TOTAL PRODUCTS (From Shopify GraphQL API)
+            <DisplayText size="medium">
+              <TextStyle variation="strong">{productCount}</TextStyle>
+            </DisplayText>
+          </Heading>
+          <Button
+            primary
+            loading={loading}
+            onClick={() => {
+              Promise.all(
+                Array.from({ length: 5 }).map(() =>
+                  populateProduct({
+                    variables: {
+                      input: {
+                        title: randomTitle(),
+                      },
+                    },
+                  })
+                )
+              ).then(() => {
+                updateProductCount();
+                setHasResults(true);
+              });
+            }}
+          >
+            Populate 5 products
+          </Button>
+          <hr></hr>
+          <br></br>
+          <Heading element="h4">
+            ADD PRODUCTS (From MongoDB)
             <DisplayText size="medium">
               <TextStyle variation="strong">{productCount}</TextStyle>
             </DisplayText>

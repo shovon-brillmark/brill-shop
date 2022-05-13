@@ -6,14 +6,21 @@ import {
   Image,
   Stack,
   Link,
-  Heading,
+  Heading
 } from "@shopify/polaris";
+import { useState } from "react";
 
 import trophyImgUrl from "../assets/home-trophy.png";
 
 import { ProductsCard } from "./ProductsCard";
+import { PopupCard } from './popup/PopupCard';
 
 export function HomePage() {
+  const [welcomeMessage, setWelcomeMeessage] = useState({
+    heading: 'Thanks for installing the Brillmark !!',
+    description: 'The app is for testing the shopify app development, The Popup Feature for Storefront.'
+  });
+
   return (
     <Page fullWidth>
       <Layout>
@@ -27,40 +34,10 @@ export function HomePage() {
             >
               <Stack.Item fill>
                 <TextContainer spacing="loose">
-                  <Heading>Brillmark is so happy to launch shopify app !! 🎉</Heading>
-                  <p>
-                    Your app is ready to explore! It contains everything you
-                    need to get started including the{" "}
-                    <Link url="https://polaris.shopify.com/" external>
-                      Polaris design system
-                    </Link>
-                    ,{" "}
-                    <Link url="https://shopify.dev/api/admin-graphql" external>
-                      Shopify Admin API
-                    </Link>
-                    , and{" "}
-                    <Link
-                      url="https://shopify.dev/apps/tools/app-bridge"
-                      external
-                    >
-                      App Bridge
-                    </Link>{" "}
-                    UI library and components.
-                  </p>
-                  <p>
-                    Ready to go? Start populating your app with some sample
-                    products to view and test in your store.{" "}
-                  </p>
-                  <p>
-                    Learn more about building out your app in{" "}
-                    <Link
-                      url="https://shopify.dev/apps/getting-started/add-functionality"
-                      external
-                    >
-                      this Shopify tutorial
-                    </Link>{" "}
-                    📚{" "}
-                  </p>
+                  <Heading>{welcomeMessage.heading} 🎉</Heading>
+                  <hr></hr>
+                  <br></br>
+                  <p>{welcomeMessage.description}</p>
                 </TextContainer>
               </Stack.Item>
               <Stack.Item>
@@ -77,6 +54,11 @@ export function HomePage() {
         </Layout.Section>
         <Layout.Section secondary>
           <ProductsCard />
+        </Layout.Section>
+      </Layout>
+      <Layout>
+        <Layout.Section>
+          <PopupCard />
         </Layout.Section>
       </Layout>
     </Page>

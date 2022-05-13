@@ -2,9 +2,9 @@
  * Product Controller---------------------------
  */
 
- const Product = require('../../models/product.model');
+ import Product from '../../models/product.model.js';
 
- exports.addProduct = (req, res, next) => {
+ const addProduct = (req, res, next) => {
 
     const newProduct = new Product({
         title: req.body.title,
@@ -36,7 +36,7 @@
 
  }
 
- exports.updateProduct = (req, res, next) => {
+ const updateProduct = (req, res, next) => {
 
      const productId = req.productData.productId;
 
@@ -69,3 +69,5 @@
         });
     });
  }
+
+ export default { addProduct, updateProduct };

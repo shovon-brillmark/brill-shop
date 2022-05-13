@@ -1,9 +1,9 @@
-var express = require('express')
+import express from 'express';
 let router = express.Router();
 
 // product Routes------------------
-let product = require('./api/product.route');
+import product from './api/product.route.js';
 router.use('/product', product);
 
 
-module.exports = router;
+export default router;

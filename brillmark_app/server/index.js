@@ -4,6 +4,7 @@ import express from "express";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import { Shopify, ApiVersion } from "@shopify/shopify-api";
+import api from "./routes/api.js";
 import "dotenv/config";
 
 import applyAuthMiddleware from "./middleware/auth.js";
@@ -40,9 +41,9 @@ Shopify.Webhooks.Registry.addHandler("APP_UNINSTALLED", {
 // Configure Mongoose to Connect to MongoDB
 mongoose
     // @ts-ignore
-    .connect(process.env.DATABASE_URL, { seNewUrlParser: true, useUnifiedTopology: true})
+    .connect(process.env.DATABASE_URL, { useNewUrlParser: true, useUnifiedTopology: true})
     .then((response) => {console.log("MongoDB Connected Successfully.");})
-    .catch((err) => {console.log("Database connection failed.");});
+    .catch((err) => {console.log("Database connection failed.", err);});
 
 // export for test use only
 export async function createServer(
@@ -105,7 +106,6 @@ export async function createServer(
   });
 
   /* Routes */
-  const api = require("./routes/api");
   app.use("/api", api);
 
   app.use("/*", (req, res, next) => {
