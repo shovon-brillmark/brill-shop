@@ -8,7 +8,8 @@ const router = express.Router();
 import popup from '../../controllers/popup/popup.controller.js';
 router.post('/add', popup.addPopup);
 router.put('/update', popup.updatePopup);
-router.get('/get', popup.getPopup);
+router.get('/', popup.getAllPopups);
+router.get('/:id?', popup.getPopup);
 
 // Export the Router
 export default router;

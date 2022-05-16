@@ -4,24 +4,6 @@
 
  import Popup from '../../models/popup.model.js';
 
- const getPopup = (req, res, next) => {
-    Popup.find({}).then( result => {
-        let data = {
-            error: false,
-            msg: 'Popups Get Successfully',
-            data: result
-        }
-        return res.status(200).json(data);
-    }).catch(error => {
-        let data = {
-            error: true,
-            msg: error,
-            data: []
-        }
-        return res.status(200).json(data);
-    })
- }
-
  const addPopup = (req, res, next) => {
 
     const newPopup = new Popup({
@@ -84,4 +66,41 @@
     });
  }
 
- export default { getPopup, addPopup, updatePopup };
+ const getAllPopups = (req, res, next) => {
+    Popup.find({}).then( result => {
+        let data = {
+            error: false,
+            msg: 'Popups Get Successfully',
+            data: result
+        }
+        return res.status(200).json(data);
+    }).catch(error => {
+        let data = {
+            error: true,
+            msg: error,
+            data: []
+        }
+        return res.status(200).json(data);
+    })
+ }
+
+ const getPopup = (req, res, next) => {
+    const popupId = req.params.id ? req.params.id : null;
+
+    Popup.findOne({ _id: popupId }).then( result => {
+        let data = {
+            error: false,
+            msg: 'Popup Get Successfully',
+            data: result
+        }
+        return res.status(200).json(data);
+    }).catch(error => {
+        let data = {
+            error: true,
+            msg: error,
+            data: []
+        }
+        return res.status(200).json(data);
+    })
+ }
+ export default { getPopup, addPopup, updatePopup, getAllPopups };
