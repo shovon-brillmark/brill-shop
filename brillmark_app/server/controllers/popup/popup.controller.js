@@ -36,7 +36,7 @@
 
  const updatePopup = (req, res, next) => {
 
-     const popupId = req.popupData.popupId;
+     const popupId = req.params.id ? req.params.id : null;
 
      const newPopup = new Popup({
         title: req.body.title,
@@ -84,7 +84,7 @@
     })
  }
 
- const getPopup = (req, res, next) => {
+ const getOnePopup = (req, res, next) => {
     const popupId = req.params.id ? req.params.id : null;
 
     Popup.findOne({ _id: popupId }).then( result => {

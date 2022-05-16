@@ -7,9 +7,9 @@ const router = express.Router();
 //Popup Related Operation------------------
 import popup from '../../controllers/popup/popup.controller.js';
 router.post('/add', popup.addPopup);
-router.put('/update', popup.updatePopup);
+router.put('/update/:id', popup.updatePopup);
 router.get('/', popup.getAllPopups);
-router.get('/:id?', popup.getPopup);
+router.get('/:id', popup.getOnePopup);
 
 // Export the Router
 export default router;
