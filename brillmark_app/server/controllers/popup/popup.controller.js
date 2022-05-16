@@ -5,9 +5,21 @@
  import Popup from '../../models/popup.model.js';
 
  const getPopup = (req, res, next) => {
-    return res.status(200).json({
-        msg: "Hello From API"
-    });
+    Popup.find({}).then( result => {
+        let data = {
+            error: false,
+            msg: 'Popups Get Successfully',
+            data: result
+        }
+        return res.status(200).json(data);
+    }).catch(error => {
+        let data = {
+            error: true,
+            msg: error,
+            data: []
+        }
+        return res.status(200).json(data);
+    })
  }
 
  const addPopup = (req, res, next) => {
