@@ -1,28 +1,37 @@
 import {
-    Card,
-    TextContainer,
+    Card
 } from "@shopify/polaris";
 
-import { useCallback } from "react";
+import { useState } from "react";
 import { PopupForm } from "./popup-form/PopupForm";
 
-export const PopupCard = () => {
+import { addPopup } from '../../actions/popup';
 
-    const handleSubmit = useCallback((_event) => {
-        setTitle('');
-        setDescription('');
-    }, []);
+export const PopupCard = () => {
+    const [submitting, setSubmitting] = useState(false);
+
+    const handleSubmit = ({ title, description }) => {
+        setSubmitting(true);
+        console.log('Title : ', title);
+        console.log('Description : ', description);
+
+        addPopup({ title, description });
+        console.log('Done');
+        setTimeout(() => {
+            setSubmitting(false);
+        }, 3000);
+    };
 
     return (
         <>
-            {toastMarkup}
-            <Card title="Popup Information" sectioned>
-                <TextContainer spacing="loose">
-                    <p>
-                        Modify popup information for storefront here.
-                    </p>
-                    <PopupForm onSubmit={handleSubmit} />
-                </TextContainer>
+            <Card title="Popup Information">
+                <Card.Section>
+                    <p>Modify popup information for storefront here.</p>
+                </Card.Section>
+
+                <Card.Section>
+                    <PopupForm onSubmit={handleSubmit} onSubmitLoader={submitting} />
+                </Card.Section>
             </Card>
         </>
     );

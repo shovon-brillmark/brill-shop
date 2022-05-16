@@ -5,21 +5,28 @@ import {
   TextContainer,
   Image,
   Stack,
-  Link,
-  Heading
+  Heading,
+  Button
 } from "@shopify/polaris";
 import { useState } from "react";
 
 import trophyImgUrl from "../assets/home-trophy.png";
-
-import { ProductsCard } from "./ProductsCard";
 import { PopupCard } from './popup/PopupCard';
+
+import { useDispatch, useSelector } from "react-redux";
+import { increaseCount } from "../store/popup.reducer";
+import { getUsersFetch } from "../store/popup.action";
 
 export function HomePage() {
   const [welcomeMessage, setWelcomeMeessage] = useState({
     heading: 'Thanks for installing the Brillmark !!',
     description: 'The app is for testing the shopify app development, The Popup Feature for Storefront.'
   });
+
+  const count = useSelector(state => state.popupReducer.count);
+  const users = useSelector(state => state.popupReducer.users);
+
+  const dispatch = useDispatch();
 
   return (
     <Page fullWidth>
@@ -36,8 +43,15 @@ export function HomePage() {
                 <TextContainer spacing="loose">
                   <Heading>{welcomeMessage.heading} 🎉</Heading>
                   <hr></hr>
-                  <br></br>
                   <p>{welcomeMessage.description}</p>
+                  {/* Testing Redux below */}
+                  {/* <p>Count :{count}</p>
+                  <Button primary onClick={() => dispatch(increaseCount())}>Increase Count</Button>
+                  <hr></hr>
+                  <div>
+                    Users : { users.map((user => (<div>{user.name}</div>))) }
+                  </div>
+                  <Button primary onClick={() => dispatch(getUsersFetch())}>Get users</Button> */}
                 </TextContainer>
               </Stack.Item>
               <Stack.Item>
@@ -52,15 +66,16 @@ export function HomePage() {
             </Stack>
           </Card>
         </Layout.Section>
-        <Layout.Section secondary>
-          <ProductsCard />
-        </Layout.Section>
       </Layout>
+      <br></br>
       <Layout>
-        <Layout.Section>
+        <Layout.Section oneHalf>
           <PopupCard />
         </Layout.Section>
-      </Layout>
+        <Layout.Section oneHalf>
+          
+        </Layout.Section>
+      </Layout> 
     </Page>
   );
 }

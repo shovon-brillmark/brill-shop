@@ -1,19 +1,23 @@
 /**
- * Product Controller---------------------------
+ * Popup Controller---------------------------
  */
 
- import Product from '../../models/product.model.js';
+ import Popup from '../../models/popup.model.js';
 
- const addProduct = (req, res, next) => {
+ const getPopup = (req, res, next) => {
+    return res.status(200).json({
+        msg: "Hello From API"
+    });
+ }
 
-    const newProduct = new Product({
+ const addPopup = (req, res, next) => {
+
+    const newPopup = new Popup({
         title: req.body.title,
-        category: req.body.category,
-        quantity: req.body.quantity,
-        price: req.body.price
+        description: req.body.description,
     });
 
-    newProduct.save().then( result => {
+    newPopup.save().then( result => {
 
         if(!result){
             return res.status(201).json({
@@ -36,29 +40,27 @@
 
  }
 
- const updateProduct = (req, res, next) => {
+ const updatePopup = (req, res, next) => {
 
-     const productId = req.productData.productId;
+     const popupId = req.popupData.popupId;
 
-     const newProduct = new Product({
+     const newPopup = new Popup({
         title: req.body.title,
-        category: req.body.category,
-        quantity: req.body.quantity,
-        price: req.body.price
+        description: req.body.description,
     });
      
-     Product.updateOne({ _id: productId }, newProduct).then(result => {
+     Popup.updateOne({ _id: popupId }, newPopup).then(result => {
          if (result.n > 0) {
             res.status(201).json({
             data: result,
             error: false,
-            msg: 'Successfully Updated Product'
+            msg: 'Successfully Updated Popup'
         });
              
          } else {
             res.status(201).json({
             error: true,
-            msg: 'Problem in Updating product'
+            msg: 'Problem in Updating popup'
         });
          }
         
@@ -70,4 +72,4 @@
     });
  }
 
- export default { addProduct, updateProduct };
+ export default { getPopup, addPopup, updatePopup };
