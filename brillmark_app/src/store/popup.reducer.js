@@ -1,10 +1,10 @@
-import { GET_USERS_SUCCESS } from "./popup.action";
+import { GET_USERS_SUCCESS, GET_POPUP_SINGLE_SUCCESS, UPDATE_POPUP_SINGLE_PENDING, UPDATE_POPUP_SINGLE_SUCCESS } from "./popup.action";
 
 export const increaseCount = () => ({
     type: 'INCREASE_COUNT'
 });
 
-const popupReducer = (state = { count: 0, users: [] }, action) => {
+const popupReducer = (state = { count: 0, users: [], popup: {}, updateSuccess: 0, updatePending: false }, action) => {
     switch (action.type) {
         case 'INCREASE_COUNT':
             return {
@@ -14,6 +14,18 @@ const popupReducer = (state = { count: 0, users: [] }, action) => {
         case GET_USERS_SUCCESS:
             return {
                 ...state, users: action.users
+            }
+        case GET_POPUP_SINGLE_SUCCESS:
+            return {
+                ...state, popup: action.popup
+            }
+        case UPDATE_POPUP_SINGLE_PENDING:
+            return {
+                ...state, updatePending: true
+            }
+        case UPDATE_POPUP_SINGLE_SUCCESS:
+            return {
+                ...state, updateSuccess: 1, updatePending: false
             }
         default:
             return state;

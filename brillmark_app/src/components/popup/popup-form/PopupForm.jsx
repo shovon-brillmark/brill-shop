@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 
 import {
     Form,
@@ -9,10 +9,12 @@ import {
 } from "@shopify/polaris";
 
 export const PopupForm = (props) => {
+    const { onSubmit, onSubmitLoader, item = { title: '', description: '' }} = props;
+
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
 
-    const { onSubmit, onSubmitLoader } = props;
+    
 
     const handleTitleChange = useCallback(
         (value) => setTitle(value),
@@ -29,6 +31,11 @@ export const PopupForm = (props) => {
     const handleSubmit = useCallback((_event) => {
         onSubmit({ title, description });
     });
+
+    useEffect(() => {
+        setTitle(item.title);
+        setDescription(item.description);
+    }, []);
 
     return (
         <>

@@ -38,28 +38,28 @@
 
      const popupId = req.params.id ? req.params.id : null;
 
-     const newPopup = new Popup({
+     const newPopup = {
         title: req.body.title,
         description: req.body.description,
-    });
+    };
      
      Popup.updateOne({ _id: popupId }, newPopup).then(result => {
-         if (result.n > 0) {
-            res.status(201).json({
+         if (result) {
+            res.status(200).json({
             data: result,
             error: false,
             msg: 'Successfully Updated Popup'
         });
              
          } else {
-            res.status(201).json({
+            res.status(400).json({
             error: true,
             msg: 'Problem in Updating popup'
         });
          }
         
     }).catch( error => {
-        res.status(201).json({
+        res.status(500).json({
             error: true,
             msg: error
         });
@@ -103,4 +103,4 @@
         return res.status(200).json(data);
     })
  }
- export default { getPopup, addPopup, updatePopup, getAllPopups };
+ export default { getOnePopup, addPopup, updatePopup, getAllPopups };

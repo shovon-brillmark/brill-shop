@@ -19,7 +19,7 @@ import { getUsersFetch } from "../store/popup.action";
 
 export function HomePage() {
   const [welcomeMessage, setWelcomeMeessage] = useState({
-    heading: 'Thanks for installing the Brillmark !!',
+    heading: 'Thanks for installing the Brillmark Popup App !!',
     description: 'The app is for testing the shopify app development, The Popup Feature for Storefront.'
   });
 
