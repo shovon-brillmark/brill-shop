@@ -3,15 +3,20 @@ import {
     Button
 } from "@shopify/polaris";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { PopupForm } from "./popup-form/PopupForm";
-
+import { Toast, useAppBridge } from "@shopify/app-bridge-react";
 import { addPopup } from '../../actions/popup';
 
 import { useDispatch, useSelector } from "react-redux";
 import { getPopupByID, updatePopupByID } from "../../store/popup.action";
 
 export const PopupCard = () => {
+    const [toast, setToast] = useState(false);
+
+  const toastMarkup = toast ? (
+    <Toast content="Updated Successfull" onDismiss={() => setToast(false)} />
+  ) : null;
     const [submitting, setSubmitting] = useState(false);
 
     const popupID = '627e243a77f915c6c90748a0';
@@ -31,8 +36,9 @@ export const PopupCard = () => {
         console.log(isUpdating);
 
         await setSubmitting(false);
+        setToast(true);
         setTimeout(() => {
-            
+            setToast(false);
         }, 3000);
     };
 
@@ -51,6 +57,7 @@ export const PopupCard = () => {
 
                 { popup && 
                     <Card.Section>
+                        {toastMarkup}
                         <PopupForm onSubmit={handleSubmit} onSubmitLoader={submitting} item={popup} />
                     </Card.Section>
                 }
