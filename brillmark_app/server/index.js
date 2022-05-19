@@ -1,6 +1,7 @@
 // @ts-check
 import { resolve } from "path";
 import express from "express";
+import cors from 'cors';
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import { Shopify, ApiVersion } from "@shopify/shopify-api";
@@ -91,8 +92,19 @@ export async function createServer(
   });
 
   app.use(express.json());
+  
+  // CORS Support
+  const corsOptions = {
+    origin: '*',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+  }
+  app.use(cors(corsOptions));
 
   app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader("Access-Control-Allow-Credentials", "false");
+    res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+    res.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
     const shop = req.query.shop;
     if (Shopify.Context.IS_EMBEDDED_APP && shop) {
       res.setHeader(

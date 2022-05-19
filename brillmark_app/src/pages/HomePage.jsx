@@ -11,13 +11,13 @@ import {
 import { useState } from "react";
 
 import trophyImgUrl from "../assets/home-trophy.png";
-import { PopupCard } from './popup/PopupCard';
+import { PopupCard } from '../components/popup/PopupCard';
 
 import { useDispatch, useSelector } from "react-redux";
-import { increaseCount } from "../store/popup.reducer";
-import { getUsersFetch } from "../store/popup.action";
+// import { increaseCount } from "../store/popup.reducer";
+// import { getUsersFetch } from "../store/popup.action";
 
-export function HomePage() {
+const HomePage = () => {
   const [welcomeMessage, setWelcomeMeessage] = useState({
     heading: 'Thanks for installing the Brillmark Popup App !!',
     description: 'The app is for testing the shopify app development, The Popup Feature for Storefront.'
@@ -78,4 +78,6 @@ export function HomePage() {
       </Layout> 
     </Page>
   );
-}
+};
+
+export default HomePage;

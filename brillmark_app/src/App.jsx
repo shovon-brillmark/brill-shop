@@ -14,7 +14,10 @@ import { AppProvider as PolarisProvider } from "@shopify/polaris";
 import translations from "@shopify/polaris/locales/en.json";
 import "@shopify/polaris/build/esm/styles.css";
 
-import { HomePage } from "./components/HomePage";
+import { Routes, Route, BrowserRouter as Router } from 'react-router-dom';
+
+import HomePage from "./pages/HomePage";
+import ScriptsPage from "./pages/ScriptsPage";
 
 export default function App() {
   return (
@@ -27,7 +30,17 @@ export default function App() {
         }}
       >
         <MyProvider>
-          <HomePage />
+          <Router>
+            <Routes>
+              {/* <Route exact path="/" component={HomePage} />
+              <Route component={NotFoundPage} /> */}
+              {/* <Route exact path="/">
+                <HomePage />
+              </Route> */}
+              <Route path='/' element={<HomePage />} />
+              <Route path='/scripts' element={<ScriptsPage />} />
+            </Routes>
+          </Router>
         </MyProvider>
       </AppBridgeProvider>
     </PolarisProvider>

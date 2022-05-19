@@ -8,5 +8,10 @@ export default {
   define: {
     "process.env.SHOPIFY_API_KEY": JSON.stringify(process.env.SHOPIFY_API_KEY),
   },
-  plugins: [react()],
+  plugins: [
+    process.env.MODE !== 'production' ? react({
+      jsxRuntime: 'classic',
+    }) : react()
+  ],
+  mode: "production"
 };
