@@ -2,6 +2,7 @@
   "name": "shopify-app-node",
   "private": true,
   "scripts": {
+    "analyze": "source-map-explorer dist/client/assets/index.*",
     "build": "npm run build:client",
     "build:client": "vite build --outDir dist/client",
     "debug": "node --inspect-brk server/index.js",

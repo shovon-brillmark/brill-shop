@@ -4,7 +4,7 @@ const ACCESS_TOKEN = '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';
 const POPUP_ID = '627e243a77f915c6c90748a0';
 const APP_SLUG = 'brillmark-popup';
 // const APP_HOST = 'https://2ee0-103-218-26-239.ngrok.io';
-const APP_HOST = 'http://ec2-15-206-165-10.ap-south-1.compute.amazonaws.com';
+const APP_HOST = 'http://shopify-popup-app.brillmark.com';
 
 const pathForJS = '/js/main.js';
 const pathForCSS = '/css/style.css';

@@ -1,4 +1,3 @@
-// @ts-check
 import { resolve } from "path";
 import express from "express";
 import cors from 'cors';
@@ -33,7 +32,6 @@ Shopify.Context.initialize({
 const ACTIVE_SHOPIFY_SHOPS = {};
 Shopify.Webhooks.Registry.addHandler("APP_UNINSTALLED", {
   path: "/webhooks",
-  // @ts-ignore
   webhookHandler: async (topic, shop, body) => {
     delete ACTIVE_SHOPIFY_SHOPS[shop];
   },
@@ -127,7 +125,7 @@ export async function createServer(
     // include a shop in the query parameters.
     // @ts-ignore
     if (app.get("active-shopify-shops")[shop] === undefined && shop) {
-      // @ts-ignore
+      
       res.redirect(`/auth?${new URLSearchParams(req.query).toString()}`);
     } else {
       next();
@@ -166,7 +164,7 @@ export async function createServer(
     const fs = await import("fs");
     app.use(compression());
     app.use(serveStatic(resolve("dist/client")));
-    // @ts-ignore
+
     app.use("/*", (req, res, next) => {
       // Client-side routing will pick up on the correct route to render, so we always render the index here
       res
